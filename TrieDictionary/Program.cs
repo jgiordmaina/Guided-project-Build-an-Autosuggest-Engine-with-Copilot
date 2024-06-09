@@ -12,17 +12,22 @@ Trie dictionary = InitializeTrie(words);
 // SearchWord();
 // PrefixAutocomplete();
 // DeleteWord();
-// GetSpellingSuggestions();
+ GetSpellingSuggestions();
 
+// This method initializes a Trie data structure with the given array of words
 Trie InitializeTrie(string[] words)
 {
+    // Create a new instance of the Trie class
     Trie trie = new Trie();
 
+    // Iterate through each word in the array
     foreach (string word in words)
     {
+        // Insert the word into the Trie
         trie.Insert(word);
     }
 
+    // Return the initialized Trie
     return trie;
 }
 
@@ -36,12 +41,12 @@ void SearchWord()
         {
             break;
         }
-        /*
+        
         if (input != null && dictionary.Search(input))
         {
             Console.WriteLine($"Found \"{input}\" in dictionary");
         }
-        */
+        
         else
         {
             Console.WriteLine($"Did not find \"{input}\" in dictionary");
@@ -66,14 +71,14 @@ void DeleteWord()
         {
             break;
         }
-        /*
+        
         if (input != null && dictionary.Search(input))
         {
             dictionary.Delete(input);
             Console.WriteLine($"Deleted \"{input}\" from dictionary\n");
             PrintTrie(dictionary);
         }
-        */
+        
         else
         {
             Console.WriteLine($"Did not find \"{input}\" in dictionary");
@@ -198,9 +203,20 @@ void PrintTrie(Trie trie)
 {
     Console.WriteLine("The dictionary contains the following words:");
     List<string> words = trie.GetAllWords();
+    int columnWidth = (int)Math.Ceiling((double)words.Count / 5);
+    int currentColumn = 0;
+
     foreach (string word in words)
     {
-        Console.Write($"{word}, ");
+        Console.Write($"{word,-20}");
+        currentColumn++;
+
+        if (currentColumn == columnWidth)
+        {
+            Console.WriteLine();
+            currentColumn = 0;
+        }
     }
+
     Console.WriteLine();
 }
